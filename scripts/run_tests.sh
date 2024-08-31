@@ -24,10 +24,6 @@ IGNORE="IGNORE"
 rm -rf ${RESULT_DIR}
 
 
-# Setup test programs
-make tests ||
-    exit_on_error "Tests failed to build."
-
 # Setup test summary file
 mkdir -p ${RESULT_DIR}
 > ${SUMMARY_FILE}
