@@ -49,7 +49,20 @@ buf_t *circ_buf_init(uword_t len, uword_t el_size)
 
 void circ_buf_write(struct buf_s *buf_p, const void *data)
 {
+    circ_buf_t *buf = (circ_buf_t *) buf_p;
+    
+    // Calculate starting location in buffer
+    uword_t loc = buf->el_size * buf->windex;
 
+    // Copy value into buffer
+    memcpy(&(buf->mem[loc]), data, buf->el_size);
+    
+    // Increment reading position
+    buf->windex++;
+    if (buf->windex >= buf->len)
+    {
+        buf->windex = 0;
+    }
 }
 
 void circ_buf_read(struct buf_s *buf_p, void *data)
