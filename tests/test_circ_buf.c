@@ -57,6 +57,55 @@ void test_circ_buf_fifo_range(void)
     }
 }
 
+void test_circ_buf_rindex_rollover(void)
+{
+    EL_TYPE write_val = 36;
+    EL_TYPE read_val = 0;
+
+    for (size_t i = 0; i < BUF_LEN; i++)
+    {
+        buf_write(buf, &write_val);
+        buf_read(buf, &read_val);
+
+        TEST_ASSERT_EQUAL(write_val, read_val);
+
+        write_val++;
+    }
+
+    write_val -= BUF_LEN;
+
+    for (size_t i = 0; i < BUF_LEN; i++)
+    {
+        buf_read(buf, &read_val);
+
+        TEST_ASSERT_EQUAL(write_val, read_val);
+
+        write_val++;
+    }
+}
+
+void test_circ_buf_windex_rollover(void)
+{
+    EL_TYPE write_val = 36;
+    EL_TYPE read_val = 0;
+
+    for (size_t i = 0; i < BUF_LEN; i++)
+    {
+        buf_write(buf, &write_val);
+        write_val++;
+    }
+
+    for (size_t i = 0; i < BUF_LEN; i++)
+    {
+        buf_write(buf, &write_val);
+        buf_read(buf, &read_val);
+
+        TEST_ASSERT_EQUAL(write_val, read_val);
+
+        write_val++;
+    }
+}
+
 
 // Test framework setup and tear down
 
