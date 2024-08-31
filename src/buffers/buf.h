@@ -43,7 +43,7 @@ typedef struct buf_s {
  * 
  * void
  */
-void buf_write(buf_t *buf, const void *data)
+static inline void buf_write(buf_t *buf, const void *data)
 {
     return buf->write(buf, data);
 }
@@ -63,7 +63,7 @@ void buf_write(buf_t *buf, const void *data)
  * 
  * void
  */
-void buf_read(buf_t *buf, void *data)
+static inline void buf_read(buf_t *buf, void *data)
 {
     return buf->read(buf, data);
 }
@@ -82,7 +82,7 @@ void buf_read(buf_t *buf, void *data)
  * 
  * void
  */
-void buf_free(buf_t *buf)
+static inline void buf_free(buf_t *buf)
 {
     return buf->free(buf);
 }

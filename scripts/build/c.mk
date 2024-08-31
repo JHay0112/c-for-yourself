@@ -11,12 +11,12 @@ include conf.mk
 
 # Compiler information
 CC := gcc
-CFLAGS := -Wall -Werror -MD
+CFLAGS := -Wall -Werror -MD $(addprefix -I, $(INC_DIRS))
 
 
 # Generic C rules
 $(BUILD_DIR)/%.o: %.c $(BUILD_DIR)
-	@echo CC $<
+	@echo CC $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.d: $(BUILD_DIR)/%.o
