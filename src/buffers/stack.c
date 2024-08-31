@@ -47,14 +47,14 @@ buf_t *stack_init(uword_t len, uword_t el_size)
 
 void stack_write(buf_t *buf_p, const void *data)
 {
-    stack_t *stack = (stack_t *) buf_p;
+    // stack_t *stack = (stack_t *) buf_p;
 
 
 }
 
 void stack_read(buf_t *buf_p, void *data)
 {
-    stack_t *stack = (stack_t *) buf_p;
+    // stack_t *stack = (stack_t *) buf_p;
 
 
 }
