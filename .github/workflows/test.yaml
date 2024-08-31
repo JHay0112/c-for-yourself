@@ -1,0 +1,17 @@
+name: Run Tests
+
+on: [push]
+
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Build tests
+        run: make tests
+      - run: chmod +x scripts/run_tests.sh
+      - name: Run tests
+        run: scripts/run_tests.sh

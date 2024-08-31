@@ -22,13 +22,6 @@ TEST_TARGETS := $(addprefix $(BUILD_DIR)/, $(TEST_SRCS:.c=.o))
 TEST_EXES := $(addprefix $(BUILD_DIR)/, $(TEST_SRCS:.c=.out))
 
 
-# Tests
-.PHONY: test 
-test: tests 
-	@chmod +x $(TEST_EXES)
-	$(foreach test, $(TEST_EXES), @echo TEST $(notdir $(test:_Runner=)) && $(test);)
-
-
 .PHONY: tests
 tests: $(TEST_EXES)
 
