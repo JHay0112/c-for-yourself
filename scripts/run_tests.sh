@@ -25,7 +25,7 @@ rm -rf ${RESULT_DIR}
 
 
 # Setup test programs
-make tests > /dev/null ||
+make tests ||
     exit_on_error "Tests failed to build."
 
 # Setup test summary file
