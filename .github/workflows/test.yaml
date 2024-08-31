@@ -11,6 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          chmod +x scripts/run_tests.sh
+          sudo chmod +x scripts/run_tests.sh
       - run: |
-          scripts/run_tests.sh
+          sudo scripts/run_tests.sh
