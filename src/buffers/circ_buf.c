@@ -85,5 +85,8 @@ void circ_buf_read(struct buf_s *buf_p, void *data)
 
 void circ_buf_free(struct buf_s *buf_p)
 {
+    circ_buf_t *buf = (circ_buf_t *) buf_p;
 
+    free(buf->mem);
+    free(buf);
 }
