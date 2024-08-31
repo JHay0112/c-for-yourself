@@ -9,6 +9,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: |
           chmod +x scripts/run_tests.sh
           scripts/run_tests.sh
