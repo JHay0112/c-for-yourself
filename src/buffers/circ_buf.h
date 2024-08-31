@@ -19,7 +19,7 @@
  * word_t len: The number of elements in the buffer.
  * word_t el_size: The size of the elements in bytes.
  */
-buf_t *circ_buf_init(word_t len, word_t el_size);
+buf_t *circ_buf_init(uword_t len, uword_t el_size);
 
 
 #endif 
