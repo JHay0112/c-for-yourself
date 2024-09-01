@@ -12,8 +12,9 @@ TEST_EXT=out
 RESULT_EXT=result
 PASS_EXT=testpass
 FAIL_EXT=testfail
+VALGRIND_EXT=valgrind
 
-SUMMARY_FILE=${RESULT_DIR}/results.summary
+SUMMARY_FILE=${RESULT_DIR}/summary.txt
 
 PASS="PASS"
 FAIL="FAIL"
@@ -38,6 +39,12 @@ do
 
     echo > ${test_file}.${RESULT_EXT}
     echo ${test_file} >> ${test_file}.${RESULT_EXT}
+    valgrind                                    \
+        --leak-check=full                       \
+        --show-leak-kinds=all                   \
+        --track-origins=yes                     \
+        --verbose                               \
+        --log-file=${test_file}.${VALGRIND_EXT} \
     ${test} >> ${test_file}.${RESULT_EXT}
 
     cat ${test_file}.${RESULT_EXT} >> ${SUMMARY_FILE}
@@ -53,7 +60,7 @@ done
 
 
 # Move results into the results directory
-results=$(find ${TEST_DIR} -name "*.${PASS_EXT}" -o -name "*.${FAIL_EXT}" -type f)
+results=$(find ${TEST_DIR} -name "*.${PASS_EXT}" -o -name "*.${FAIL_EXT}" -o -name "*.${VALGRIND_EXT}" -type f)
 mv ${results} ${RESULT_DIR}
 
 # Summarise the results
@@ -62,4 +69,6 @@ cat ${SUMMARY_FILE}
 
 
 # Determine exit status from number of failures
-exit $(find . -name "*.${FAIL_EXT}" | wc -l)
+num_test_fails=$(find ${RESULT_DIR} -name "*.${FAIL_EXT}" | wc -l)
+num_mem_check_fails=$(grep -L "ERROR SUMMARY: 0" ${RESULT_DIR}/*.${VALGRIND_EXT} | wc -l)
+exit ((num_test_fails+num_mem_check_fails))
