@@ -29,6 +29,17 @@ void test_stack_empty_stack_reads_zero(void)
     TEST_ASSERT_EQUAL(0, data);
 }
 
+void test_stack_is_filo(void)
+{
+    EL_TYPE write_val = 32;
+    EL_TYPE read_val = 21;
+
+    buf_write(stack, (void *) &write_val);
+    buf_read(stack, (void *) &read_val);
+
+    TEST_ASSERT_EQUAL(write_val, read_val);
+}
+
 
 // Test framework setup and tear down
 

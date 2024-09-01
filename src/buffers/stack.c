@@ -47,9 +47,10 @@ buf_t *stack_init(uword_t len, uword_t el_size)
 
 void stack_write(buf_t *buf_p, const void *data)
 {
-    // stack_t *stack = (stack_t *) buf_p;
+    stack_t *stack = (stack_t *) buf_p;
 
-
+    // Copy data from pointer into stack
+    memcpy(&(stack->mem[stack->pos * stack->el_size]), data, stack->el_size);
 }
 
 void stack_read(buf_t *buf_p, void *data)
