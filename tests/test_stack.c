@@ -15,22 +15,30 @@
 #define EL_SIZE sizeof(EL_TYPE)
 
 
-static buf_t *buf;
+static buf_t *stack;
 
 
 // Test cases
 
+void test_stack_empty_stack_reads_zero(void)
+{
+    EL_TYPE data = 32;
+
+    buf_read(stack, (void *) &data);
+
+    TEST_ASSERT_EQUAL(0, data);
+}
 
 
 // Test framework setup and tear down
 
 void setUp(void)
 {
-    buf = stack_init(BUF_LEN, EL_SIZE);
+    stack = stack_init(BUF_LEN, EL_SIZE);
 }
 
 
 void tearDown(void)
 {
-    buf_free(buf);
+    buf_free(stack);
 }

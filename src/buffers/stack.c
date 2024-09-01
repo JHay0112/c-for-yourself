@@ -14,7 +14,7 @@
 typedef struct {
     buf_t buf; // Buffer abstraction layer
     uint8_t *mem; // Buffer memory
-    uword_t num;
+    uword_t pos;
     uword_t len;
     uword_t el_size;
 } stack_t;
@@ -32,7 +32,7 @@ buf_t *stack_init(uword_t len, uword_t el_size)
 
     // Allocate memory to the buffer
     buf->mem = (uint8_t *) calloc(len, el_size);
-    buf->num = 0;
+    buf->pos = 0;
     buf->len = len;
     buf->el_size = el_size;
 
@@ -54,9 +54,10 @@ void stack_write(buf_t *buf_p, const void *data)
 
 void stack_read(buf_t *buf_p, void *data)
 {
-    // stack_t *stack = (stack_t *) buf_p;
+    stack_t *stack = (stack_t *) buf_p;
 
-
+    // Copy data from stack into pointer
+    memcpy(data, &(stack->mem[stack->pos * stack->el_size]), stack->el_size);
 }
 
 void stack_free(buf_t *buf_p)
