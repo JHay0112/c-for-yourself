@@ -51,11 +51,23 @@ void stack_write(buf_t *buf_p, const void *data)
 
     // Copy data from pointer into stack
     memcpy(&(stack->mem[stack->pos * stack->el_size]), data, stack->el_size);
+
+    // Update position
+    if (stack->pos < stack->len)
+    {
+        stack->pos += 1;
+    }
 }
 
 void stack_read(buf_t *buf_p, void *data)
 {
     stack_t *stack = (stack_t *) buf_p;
+
+    // Update position
+    if (stack->pos > 0)
+    {
+        stack->pos -= 1;
+    }
 
     // Copy data from stack into pointer
     memcpy(data, &(stack->mem[stack->pos * stack->el_size]), stack->el_size);

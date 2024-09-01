@@ -40,6 +40,41 @@ void test_stack_is_filo(void)
     TEST_ASSERT_EQUAL(write_val, read_val);
 }
 
+void test_stack_filo_range(void)
+{
+    EL_TYPE write_val = 21;
+    EL_TYPE read_val = 0;
+
+    for (size_t i = 0; i < BUF_LEN; i++)
+    {
+        write_val++;
+        buf_write(stack, (void *) &write_val);
+    }
+
+    for (size_t i = 0; i < BUF_LEN; i++)
+    {
+        buf_read(stack, (void *) &read_val);
+        TEST_ASSERT_EQUAL(write_val, read_val);
+        write_val--;
+    }
+}
+
+void test_stack_rejects_when_full(void)
+{
+    EL_TYPE write_val = 21;
+    EL_TYPE read_val = 0;
+
+    for (size_t i = 0; i < BUF_LEN+ 1; i++)
+    {
+        write_val++;
+        buf_write(stack, (void *) &write_val);
+    }
+
+    write_val--;
+    buf_read(stack, (void *) &read_val);
+    TEST_ASSERT_EQUAL(write_val, read_val);
+}
+
 
 // Test framework setup and tear down
 
