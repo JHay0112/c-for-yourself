@@ -49,6 +49,12 @@ void stack_write(buf_t *buf_p, const void *data)
 {
     stack_t *stack = (stack_t *) buf_p;
 
+    if (stack->pos >= stack->len)
+    {
+        // Stack is already full, do not add any more data
+        return;
+    }
+
     // Copy data from pointer into stack
     memcpy(&(stack->mem[stack->pos * stack->el_size]), data, stack->el_size);
 
