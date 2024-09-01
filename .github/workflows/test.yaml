@@ -11,6 +11,12 @@ jobs:
 
     steps:
 
+      - name: Install dependencies
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: valgrind
+          version: 1.0
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
