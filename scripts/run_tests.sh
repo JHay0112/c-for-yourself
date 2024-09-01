@@ -71,4 +71,5 @@ cat ${SUMMARY_FILE}
 # Determine exit status from number of failures
 num_test_fails=$(find ${RESULT_DIR} -name "*.${FAIL_EXT}" | wc -l)
 num_mem_check_fails=$(grep -L "ERROR SUMMARY: 0" ${RESULT_DIR}/*.${VALGRIND_EXT} | wc -l)
-exit ((num_test_fails+num_mem_check_fails))
+echo "MEMORY CHECK FAILURES ${num_mem_check_fails}"
+exit $((num_test_fails+num_mem_check_fails))
